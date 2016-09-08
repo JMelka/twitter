@@ -49,7 +49,7 @@ function insertUser(name, fcnt) {
     stmt.finalize();
 }
 
-function getUser(db) {
+function getUser() {
     return new Promise(function (resolve, reject) {
         db.all("SELECT rowid as Id, Name AS Name, Follower_Cnt AS Follower_Cnt FROM User", function (err, rows) {
             if (err) {
@@ -64,8 +64,9 @@ function getUser(db) {
 
 }
 
-function getUserId(db) {
-    db.each("SELECT rowid as Id FROM User where Name = 'John'", function (err, row) {
+function getUserId(userId) {
+    var stmt = "SELECT rowid as Id FROM User where Name = ?";
+    db.each(stmt, userId, function (err, row) {
         if (err) {
             console.log(err);
         } else {
@@ -93,3 +94,4 @@ function getUserId(db) {
 exports.initDB = initDB;
 exports.insertUser = insertUser;
 exports.insertTweet = insertTweet;
+exports.getUserId = getUserId;
