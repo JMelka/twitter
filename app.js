@@ -38,7 +38,7 @@ var user = {};
 //    console.log(JSON.parse(JSON.stringify(user)));
 //    console.log(JSON.stringify(user));
 
-   res.end("User Added!: " + JSON.stringify(user));
+   //res.end("User Added!: " + JSON.stringify(user));
 })
 
 var server = app.listen(8081, function () {
@@ -60,14 +60,29 @@ app.post('/getUserId', urlencodedParser, function (req, res) {
 
 var userName = {};
 
-   // Prepare output in JSON format
-   userName = {
-       name:req.body.name,
-   };
+// Prepare output in JSON format
+userName = {
+    name: req.body.name,
+};
 
-    dbFile.getUserId(userName.name, cbUserId);
+dbFile.getUserId(userName.name, function (err, result) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("TheUserId: " + result);
 
-   res.end("User Name: " + JSON.stringify(userName));
+        //app.get('/responsePage.htm', function (req, res) {
+        // res.sendFile( __dirname + "/" + "responsePage.htm" );
+        res.end("User Id: " + result);
+
+
+    }
+
+});
+
+    //res.redirect('/responsePage.htm');
+    
+   //res.end("User Name: " + JSON.stringify(userName));
 })
 
 
@@ -89,17 +104,4 @@ var userName = {};
 
 
 
-function cbUserId(err, result){
-    if (err) {
-        console.log(err);
-    } else {
-        console.log("TheUserId: " + result);
-        //Get User Id
 
-app.get('/responsePage.htm', function (req, res) {
-   res.sendFile( __dirname + "/" + "responsePage.htm" );
-   res.end("User Id: " + result);
-})
-    }
-
-}
