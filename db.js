@@ -52,6 +52,9 @@ function insertTweet(userName, msg) {
 // }
 
 function insertUser(name, profile, password, loginName) {
+    //name = JSON.parse(name);
+    //profile = JSON.parse(profile);
+    
     var stmt = db.prepare("INSERT INTO User (Name, Profile, Password, LoginName) VALUES (?, ?, ?, ?)");
     stmt.run(name, profile, password, loginName);
     stmt.finalize();
