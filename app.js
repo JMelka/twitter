@@ -38,7 +38,7 @@ var user = {};
 //    console.log(JSON.parse(JSON.stringify(user)));
 //    console.log(JSON.stringify(user));
 
-   //res.end("User Added!: " + JSON.stringify(user));
+   res.end("User Added!: " + JSON.stringify(user));
 })
 
 var server = app.listen(8081, function () {
